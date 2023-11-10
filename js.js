@@ -68,9 +68,16 @@ if (productId) {
       document.getElementById("brand").value = brand;
       document.getElementById("image").value = imageUrl;
       document.getElementById("price").value = price;
+      buttonForm.className = "d-none";
+      modButton = document.createElement("button");
+      form.appendChild(modButton);
+      modButton.className = "btn btn-success mx-4";
+      modButton.innerText = "Modifica";
+
       const deleteButton = document.createElement("button");
       const bu = document.getElementById("for-butt");
       deleteButton.innerText = "Elimina Prodotto";
+      deleteButton.className = "btn btn-danger h-50";
 
       form.appendChild(deleteButton);
       console.log("bu");
@@ -78,14 +85,15 @@ if (productId) {
       deleteButton.addEventListener("click", function () {
         deleteProduct();
       });
+
+      modButton.addEventListener("click", function () {
+        modProduction();
+      });
     });
 }
 
 function deleteProduct() {
-  const deleteURL =
-    "https://striveschool-api.herokuapp.com/api/product/" + productId;
-
-  fetch(deleteURL, {
+  fetch(URL2, {
     method: "DELETE",
     headers: {
       Authorization:
@@ -101,6 +109,36 @@ function deleteProduct() {
     })
     .then((deleteObj) => {
       alert("prodotto eliminato con successo");
+    })
+    .catch((error) => {
+      console.error("Errore durante la richiesta di eliminazione:", error);
+    });
+}
+
+function modProduction() {
+  const newProductObj = {
+    name: inputName.value,
+    brand: inputBrand.value,
+    description: inputDescription.value,
+    price: parseInt(inputPrice.value),
+    imageUrl: inputImage.value,
+  };
+  fetch(URL2, {
+    method: "PUT",
+    body: JSON.stringify(newProductObj),
+    headers: {
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTRkZmFhYTk1ZDRmNjAwMTg1NjI1MTQiLCJpYXQiOjE2OTk2MDkyNTksImV4cCI6MTcwMDgxODg1OX0.HLWy5zne_4pU8qZTqpmDdX7Gy33Z4C45PRPlphlkhmk",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Errore nella richiesta di eliminazione");
+      }
+    })
+    .then((Objprod) => {
+      alert("prodotto modificato con successo");
     })
     .catch((error) => {
       console.error("Errore durante la richiesta di eliminazione:", error);
