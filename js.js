@@ -9,7 +9,7 @@ const inputDescription = document.getElementById("description");
 
 const URL = "https://striveschool-api.herokuapp.com/api/product";
 
-form.addEventListener("submit", function (event) {
+buttonForm.addEventListener("click", function (event) {
   event.preventDefault();
 
   const addProfileObj = {
@@ -66,39 +66,41 @@ if (productId) {
       document.getElementById("name").value = name;
       document.getElementById("description").value = description;
       document.getElementById("brand").value = brand;
-      document.getElementById("imageUrl").value = imageUrl;
+      document.getElementById("image").value = imageUrl;
       document.getElementById("price").value = price;
       const deleteButton = document.createElement("button");
       const bu = document.getElementById("for-butt");
-      bu.appendChild(deleteButton);
-
       deleteButton.innerText = "Elimina Prodotto";
+
+      form.appendChild(deleteButton);
+      console.log("bu");
+
       deleteButton.addEventListener("click", function () {
-        deleteProduct(productId);
+        deleteProduct();
       });
     });
 }
 
-function deleteProduct(productId) {
+function deleteProduct() {
   const deleteURL =
     "https://striveschool-api.herokuapp.com/api/product/" + productId;
 
   fetch(deleteURL, {
     method: "DELETE",
     headers: {
-      Authorization: "Bearer YOUR_ACCESS_TOKEN",
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTRkZmFhYTk1ZDRmNjAwMTg1NjI1MTQiLCJpYXQiOjE2OTk2MDkyNTksImV4cCI6MTcwMDgxODg1OX0.HLWy5zne_4pU8qZTqpmDdX7Gy33Z4C45PRPlphlkhmk",
       "Content-Type": "application/json",
     },
   })
     .then((response) => {
       if (!response.ok) {
-        console.log(response);
         throw new Error("Errore nella richiesta di eliminazione");
       }
       return response.json();
     })
     .then((deleteObj) => {
-      console.log("Prodotto eliminato con successo:", deleteObj);
+      alert("prodotto eliminato con successo");
     })
     .catch((error) => {
       console.error("Errore durante la richiesta di eliminazione:", error);
