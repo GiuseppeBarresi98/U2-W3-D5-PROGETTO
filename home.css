@@ -1,0 +1,43 @@
+body {
+  background-image: url(./assets/img/triangle_background2-6eded4a7ad80c007fb65f02c828e5dd0.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+nav {
+  height: 120px;
+  font-size: 40px;
+  display: flex;
+  background-color: white;
+}
+nav li {
+  padding-inline: 20px;
+  font-style: italic;
+}
+
+#logo-img {
+  border-radius: 50%;
+}
+
+.a-nav {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+  font-size: 30px;
+  padding-inline: 20px;
+  border-radius: 20px;
+  border: 1px solid black;
+}
+main {
+  background-color: white;
+  width: 70%;
+  height: 100%;
+  margin: auto;
+  margin-top: 50px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+}
