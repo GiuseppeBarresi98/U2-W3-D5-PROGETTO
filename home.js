@@ -37,7 +37,7 @@ window.onload = () => {
         info = document.createElement("a");
         info.innerText = "Scopri di piu";
         info.className = "btn btn-dark mx-2";
-        info.href = "info.html?_id" + product._id;
+        info.href = "info.html?_id=" + product._id;
 
         row.appendChild(div);
         div.appendChild(cardDiv);
