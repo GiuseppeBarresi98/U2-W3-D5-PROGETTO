@@ -32,7 +32,8 @@ window.onload = () => {
         p.className = "card-text";
         const a = document.createElement("a");
         a.className = "btn btn-primary";
-        a.innerText = "Dettagli prodotto";
+        a.innerText = "Modifica";
+        a.href = "backoffice.html?_id=" + product._id;
 
         row.appendChild(div);
         div.appendChild(cardDiv);

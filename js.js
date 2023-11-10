@@ -20,6 +20,7 @@ form.addEventListener("submit", function (event) {
     imageUrl: inputImage.value,
   };
   form.reset();
+  alert("prodotto con id");
 
   fetch(URL, {
     method: "POST",
@@ -44,3 +45,62 @@ form.addEventListener("submit", function (event) {
       console.error("Errore di fetch:", error);
     });
 });
+
+const params = new URLSearchParams(window.location.search);
+const productId = params.get("_id");
+const URL2 = "https://striveschool-api.herokuapp.com/api/product/" + productId;
+console.log(productId);
+
+if (productId) {
+  fetch(URL2, {
+    method: "GET",
+    headers: {
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTRkZmFhYTk1ZDRmNjAwMTg1NjI1MTQiLCJpYXQiOjE2OTk2MDkyNTksImV4cCI6MTcwMDgxODg1OX0.HLWy5zne_4pU8qZTqpmDdX7Gy33Z4C45PRPlphlkhmk",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .then((singolObj) => {
+      const { name, description, brand, imageUrl, price } = singolObj;
+      document.getElementById("name").value = name;
+      document.getElementById("description").value = description;
+      document.getElementById("brand").value = brand;
+      document.getElementById("imageUrl").value = imageUrl;
+      document.getElementById("price").value = price;
+      const deleteButton = document.createElement("button");
+      const bu = document.getElementById("for-butt");
+      bu.appendChild(deleteButton);
+
+      deleteButton.innerText = "Elimina Prodotto";
+      deleteButton.addEventListener("click", function () {
+        deleteProduct(productId);
+      });
+    });
+}
+
+function deleteProduct(productId) {
+  const deleteURL =
+    "https://striveschool-api.herokuapp.com/api/product/" + productId;
+
+  fetch(deleteURL, {
+    method: "DELETE",
+    headers: {
+      Authorization: "Bearer YOUR_ACCESS_TOKEN",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        console.log(response);
+        throw new Error("Errore nella richiesta di eliminazione");
+      }
+      return response.json();
+    })
+    .then((deleteObj) => {
+      console.log("Prodotto eliminato con successo:", deleteObj);
+    })
+    .catch((error) => {
+      console.error("Errore durante la richiesta di eliminazione:", error);
+    });
+}
