@@ -77,7 +77,11 @@ if (productId) {
       const deleteButton = document.createElement("button");
       const bu = document.getElementById("for-butt");
       deleteButton.innerText = "Elimina Prodotto";
-      deleteButton.className = "btn btn-danger h-50";
+      deleteButton.className = "btn btn-danger h-50 mx-4";
+      resetButton = document.createElement("button");
+      form.appendChild(resetButton);
+      resetButton.className = "btn btn-dark mx-4";
+      resetButton.innerText = "Reset";
 
       form.appendChild(deleteButton);
       console.log("bu");
@@ -88,6 +92,10 @@ if (productId) {
 
       modButton.addEventListener("click", function () {
         modProduction();
+      });
+
+      resetButton.addEventListener("click", function () {
+        form.reset();
       });
     });
 }

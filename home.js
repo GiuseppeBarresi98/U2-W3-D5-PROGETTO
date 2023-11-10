@@ -34,6 +34,10 @@ window.onload = () => {
         a.className = "btn btn-primary";
         a.innerText = "Modifica";
         a.href = "backoffice.html?_id=" + product._id;
+        info = document.createElement("a");
+        info.innerText = "Scopri di piu";
+        info.className = "btn btn-dark mx-2";
+        info.href = "info.html?_id" + product._id;
 
         row.appendChild(div);
         div.appendChild(cardDiv);
@@ -42,6 +46,7 @@ window.onload = () => {
         cardBody.appendChild(h5);
         cardBody.appendChild(p);
         cardBody.appendChild(a);
+        cardBody.appendChild(info);
       });
     })
     .catch((error) => {
